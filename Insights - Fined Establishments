@@ -1,0 +1,20 @@
+df = pd.read_csv('dinesafe.csv')
+
+# Filter for rows where 'Amount Fined' is not null or empty. 
+fined_df = df[df['Amount Fined'].notna()]
+
+# Define the columns to keep. 
+columns = ['Establishment Name', 'Establishment Type', 'Establishment Address', 
+           'Infraction Details', 'Inspection Date', 'Severity', 
+           'Outcome', 'Action', 'Amount Fined'] 
+
+# Create the refined DataFrame.
+fined_df = fined_df[columns]
+
+fined_df = fined_df[fined_df['Amount Fined'] != 0.0] 
+
+# Sort DataFrame by 'Amoutn Fined' in descending order. 
+fined_df = fined_df.sort_values(by='Amount Fined', ascending=False)
+
+# Save to a new csv file. 
+fined_df.to_csv('fined.csv', index=False) 
